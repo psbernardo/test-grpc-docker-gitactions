@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:     
+ web:
+  build: .
+  container_name: "grpc-go"
+  ports:
+   - "50120:50120"
+   - "50121:50121"
+  extra_hosts: 
+   - "loghost:192.168.254.124"
+  networks:
+   - dockernet
+ 
+networks:
+ dockernet:
+  external: true
+   
+  
