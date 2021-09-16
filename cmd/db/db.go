@@ -2,7 +2,6 @@ package db
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/jinzhu/gorm"
 	"github.com/patrick/test-grpc-docker-gitactions/lib/dbop"
@@ -62,7 +61,7 @@ var createDbCmd = &cobra.Command{
 	Use: "create-db",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		dbName := "testdb"
-		connectionString := strings.Replace(env.DBConnectionString, "testdb", "master", 1)
+		connectionString := env.DBConnectionString
 		db, err := dbop.NewMSDB(connectionString)
 		if err != nil {
 			return err
@@ -73,7 +72,7 @@ var createDbCmd = &cobra.Command{
 			fmt.Println(db.Error)
 		}
 
-		db = db.Exec("CREATE DATABASE testdb;")
+		db = db.Exec("CREATE DATABASE ?;", dbName)
 		if db.Error != nil {
 			fmt.Println(db.Error)
 		}
