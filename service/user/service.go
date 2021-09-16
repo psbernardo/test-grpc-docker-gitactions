@@ -27,7 +27,7 @@ func (s *Service) WithTx(ctx *context.Context) *Service {
 func (s *Service) TestCall(in *userpb.User) (*userpb.UserResponse, error) {
 
 	u := model.User{
-		Name: in.Name,
+		Name: in.Name + "from dh",
 	}
 
 	if err := s.tx.Create(&u).Error; err != nil {

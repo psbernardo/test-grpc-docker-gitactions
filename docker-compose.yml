@@ -5,8 +5,8 @@ services:
   build: .
   container_name: "grpc-go"
   ports:
-   - "50120:50120"
-   - "50121:50121"
+   - "9010:9010"
+   - "9011:9011"
   extra_hosts: 
    - "loghost:192.168.254.124"
   networks:
