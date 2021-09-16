@@ -16,7 +16,7 @@ import (
 )
 
 func StartGrpc() (*grpc.Server, error) {
-	grpc_port := "50120"
+	grpc_port := "9010"
 
 	maxMSGSize := 1000 * 1024 * 1024
 
@@ -54,7 +54,7 @@ func StartGrpc() (*grpc.Server, error) {
 }
 
 func StartGrpcWeb(s *grpc.Server) (*http.Server, error) {
-	grpc_webport := "50121"
+	grpc_webport := "9011"
 	fmt.Println("initializing grpc server: web port:", grpc_webport)
 	fmt.Println("initializing grpc web proxy server", " port ", grpc_webport)
 	grpcWebServer := grpcweb.WrapServer(s)
