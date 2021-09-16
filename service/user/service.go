@@ -34,5 +34,5 @@ func (s *Service) TestCall(in *userpb.User) (*userpb.UserResponse, error) {
 		return nil, err
 	}
 	fmt.Println("call server")
-	return &userpb.UserResponse{Status: "Test Success " + in.Name}, nil
+	return &userpb.UserResponse{Status: "Test Success -" + in.Name}, nil
 }
