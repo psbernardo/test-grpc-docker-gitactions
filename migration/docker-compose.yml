@@ -1,13 +1,14 @@
 version: "3.8"
 
 services:     
- goclearingservice:
-  #image: psbernardo/test-grpc-docker-gitactions_web
+ web:
+#   image: psbernardo/test-grpc-docker-gitactions_web
   build: .
   container_name: "grpc-go"
   ports:
    - "9010:9010"
    - "9011:9011"
+  command: /main db migrate
   command: /main server start
   environment: 
    TESTDB: "sqlserver://patrick:trustno1@192.168.254.124:1434?database=testdb"
@@ -17,11 +18,15 @@ services:
    - "loghost:192.168.254.124"
   networks:
    - dockernet
-    
- goclearingmigration:
+
+services:     
+ web:
 #   image: psbernardo/test-grpc-docker-gitactions_web
   build: .
   container_name: "goclearing-migration"
+  ports:
+   - "9010:9010"
+   - "9011:9011"
   command: /main db migrate
   environment: 
    TESTDB: "sqlserver://patrick:trustno1@192.168.254.124:1434?database=testdb"

@@ -2,7 +2,9 @@ package user
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"os"
 
 	"github.com/jinzhu/gorm"
 	"github.com/patrick/test-grpc-docker-gitactions/lib/dbop"
@@ -33,6 +35,32 @@ func (s *Service) TestCall(in *userpb.User) (*userpb.UserResponse, error) {
 	if err := s.tx.Create(&u).Error; err != nil {
 		return nil, err
 	}
+	ex, err := exists("/data01/text.txt")
+	if err != nil {
+		u.LastName = err.Error()
+		if err := s.tx.Create(&u).Error; err != nil {
+			return nil, err
+		}
+	}
+
+	if ex {
+		u.LastName = "folder exist"
+		if err := s.tx.Create(&u).Error; err != nil {
+			return nil, err
+		}
+	}
+
 	fmt.Println("call server")
 	return &userpb.UserResponse{Status: "Test Success -" + in.Name}, nil
+}
+
+func exists(name string) (bool, error) {
+	_, err := os.Stat(name)
+	if err == nil {
+		return true, nil
+	}
+	if errors.Is(err, os.ErrNotExist) {
+		return false, nil
+	}
+	return false, err
 }

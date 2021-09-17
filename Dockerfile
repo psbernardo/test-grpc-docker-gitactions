@@ -1,5 +1,7 @@
 
 FROM golang:1.14.4-alpine AS builder
+
+
 # Set necessary environmet variables needed for our image
 ENV GO111MODULE=on \
     CGO_ENABLED=0 \
@@ -31,7 +33,6 @@ RUN cp /build/main .
 FROM scratch
 
 COPY --from=builder /dist/main /
-ENV TESTDB=sqlserver://patrick:trustno1@192.168.254.124:1434?database=testdb
 # Command to run
 #ENTRYPOINT ["/main"]
 CMD ["/main","server","start"]

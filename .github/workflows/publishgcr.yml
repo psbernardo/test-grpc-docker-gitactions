@@ -1,0 +1,18 @@
+name: Build and Push Docker Image to GCR
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-push-to-gcr:
+    runs-on: ubuntu-latest
+   steps:
+      - uses: actions/checkout@v2
+      - uses: google-github-actions/setup-gcloud@master
+      - uses: RafikFarhad/push-to-gcr-github-action@v4
+        with:
+          gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+          registry: gcr.io
+          project_id: tzero-325414
+          image_name: test-grpc-docker-gitactions_web
