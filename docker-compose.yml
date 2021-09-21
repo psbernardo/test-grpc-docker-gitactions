@@ -18,17 +18,17 @@ services:
   networks:
    - dockernet
     
- goclearingmigration:
-#   image: psbernardo/test-grpc-docker-gitactions_web
-  build: .
-  container_name: "goclearing-migration"
-  command: /main db migrate
-  environment: 
-   TESTDB: "sqlserver://patrick:trustno1@192.168.254.124:1434?database=testdb"
-  extra_hosts: 
-   - "loghost:192.168.254.124"
-  networks:
-   - dockernet
+#  goclearingmigration:
+# #   image: psbernardo/test-grpc-docker-gitactions_web
+#   build: .
+#   container_name: "goclearing-migration"
+#   command: /main db migrate
+#   environment: 
+#    TESTDB: "sqlserver://patrick:trustno1@192.168.254.124:1434?database=testdb"
+#   extra_hosts: 
+#    - "loghost:192.168.254.124"
+#   networks:
+#    - dockernet
    
  
 networks:
