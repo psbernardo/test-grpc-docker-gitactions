@@ -8,7 +8,6 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/patrick/test-grpc-docker-gitactions/lib/dbop"
-	model "github.com/patrick/test-grpc-docker-gitactions/models/user"
 	"github.com/patrick/test-grpc-docker-gitactions/proto/userpb"
 )
 
@@ -28,16 +27,12 @@ func (s *Service) WithTx(ctx *context.Context) *Service {
 
 func (s *Service) TestCall(in *userpb.User) (*userpb.UserResponse, error) {
 
-	u := model.User{
-		Name: in.Name + " 32 minutes",
-	}
-
-	if err := s.tx.Create(&u).Error; err != nil {
+	if err := s.tx.Exec(`INSERT INTO [api].[status]([account_id]) VALUES ('dfdf')`).Error; err != nil {
 		return nil, err
 	}
 
 	fmt.Println("call server")
-	return &userpb.UserResponse{Status: "Test Success -" + in.Name}, nil
+	return &userpb.UserResponse{Status: "GCP call sucess" + in.Name}, nil
 }
 
 func exists(name string) (bool, error) {
