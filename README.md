@@ -21,3 +21,5 @@ Rename the download file to 'protoc-gen-grpc-web', copy it to [gopath]/bin
 
 NOTE:
 This guide assumes you already installed GO. GO is not required in protobuf, if you are using a different programming language you can change "gopath bin folder" to any folder that can be accessed by PATH environment variable.
+
+test note
